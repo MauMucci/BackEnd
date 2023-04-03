@@ -26,20 +26,23 @@ class ProductManager {
             product.id = lastProduct.id + 1; 
         }
         
-
-        
-        //this.products.push(product)
-
-        this.products.forEach(p => {                
-            //console.log(p.code)  
-            if(p.code == product.code){
-            console.log("adentro " + p.code + " " + product.code)   
-            this.products.push(product) }
-            else{
-                console.log("no entre")
-            }                                  
-                           
-        })
+              
+        if(this.products.length == 0){ //Verifico que el el arreglo este vacio y agrego el primer elemento 
+            this.products.push(product)
+        }
+        else{
+               this.products.forEach(p => {
+                if(p.code == product.code){
+                    console.log("Codigo ya ingresado" +product.code+ "Ingrese otro producto ")
+                    return
+                }
+                else{
+                    console.log("Producto agregado correctamente " + product.code)   
+                    this.products.push(product)             
+                }                                  
+                            
+            })
+    }
 
         
        
@@ -78,7 +81,7 @@ class ProductManager {
         description: "este e sun producto prueba",
         price: 200,
         thumbnail: "Sin imagen",
-        code: "AAA",
+        code: "code 1",
         stock: 25,        
     }
     const prod2 = {
@@ -86,20 +89,33 @@ class ProductManager {
         description: "este e sun producto pasdasdasdasdasdasdasdsadrueba",
         price: 200,
         thumbnail: "Sin imagen",
-        code: "abc1232",
+        code: "code 1",
         stock: 25,        
     }
+    const prod3 = {
+        title:"producto 3",
+        description: "Producto 3",
+        price: 300,
+        thumbnail: "Sin imagen",
+        code: "code 3",
+        stock: 30,
+    }
+
+
    
 
 
     productManager.addProducts(prod1)
     productManager.addProducts(prod2) 
+    productManager.addProducts(prod3) 
 
     //productManager.getProductById(1)
     //productManager.addProducts(prod3) 
 
     //console.log(prod1)
-    //console.log(productManager.getProducts())
+    //
+    
+    console.log(productManager.getProducts())
   /*   productManager.getProductById(2) */
 
     //productManager.getProducts()
