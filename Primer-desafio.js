@@ -19,7 +19,7 @@ class ProductManager {
             stock
         }
 
-        if(this.products.length === 0){//No hay productos en el arreglo => le asignamos el id 1
+        if(this.products.length === 0){//Si no hay productos en el arreglo => le asignamos el id 1
             product.id = 1;
         }else{ 
             const lastProduct = this.products [this.products.length-1] 
@@ -28,11 +28,12 @@ class ProductManager {
               
         if(this.products.length == 0){ //Verifico que el el arreglo este vacio y agrego el primer elemento 
             this.products.push(product)
+            console.log("Producto agregado correctamente " + product.code) 
         }
         else{
                this.products.forEach(p => {
                 if(p.code == product.code){
-                    console.log("Codigo ya ingresado" +product.code+ "Producto no ingresado ")
+                    console.log("Codigo ya utilizado " +product.code+ " Producto no ingresado ")
                     return
                 }
                 else{
@@ -50,7 +51,7 @@ class ProductManager {
        return console.log(this.products);
     }
 
-    getProductById = (id) => {
+    /* getProductById = (id) => {
         let idCheck
         let requestedProduct
         this.products.forEach(p =>{
@@ -62,6 +63,22 @@ class ProductManager {
         if(idCheck){
                 console.log("Producto solicitado: ",requestedProduct)
             }    
+    } */
+
+    getProductById = (id) => {   
+        let notFound = 0   
+        let found = 0
+        this.products.forEach(p =>{
+            if(p.id === id){
+                console.log("Producto solicitado: ",p)
+                found = 1
+                return
+            }
+                      
+        })
+        if(found == 0 ){
+            console.log("NOT FOUND")
+        }        
     }
     
 }
@@ -98,7 +115,7 @@ class ProductManager {
     productManager.addProducts(prod2) 
     productManager.addProducts(prod3) 
 
-    //productManager.getProductById(1)
-    
-    console.log(productManager.getProducts())
+    productManager.getProductById(3)
+    //productManager.getProducts()
+
  
