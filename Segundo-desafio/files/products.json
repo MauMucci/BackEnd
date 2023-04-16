@@ -1,1 +1,27 @@
-[]
+[
+	{
+		"title": "producto 1",
+		"description": "este es un producto prueba",
+		"price": 200,
+		"thumbnail": "Sin imagen",
+		"code": "code 1",
+		"stock": 25,
+		"id": 1
+	},
+	{
+		"title": "producto a upgradear",
+		"description": "product description",
+		"price": 400,
+		"thumbnail": "Sin imagen",
+		"stock": 1
+	},
+	{
+		"title": "producto 3",
+		"description": "Producto 3",
+		"price": 300,
+		"thumbnail": "Sin imagen",
+		"code": "code 3",
+		"stock": 30,
+		"id": 3
+	}
+]

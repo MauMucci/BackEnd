@@ -24,24 +24,25 @@ class ProductManager {
         }
 
         if(this.products.length === 0){//Si no hay productos en el arreglo => le asignamos el id 1
-            product.id = 1;
-            this.products.push(product)
-            console.log("Primer producto agregado correctamente " + product.code) 
-        }else{ 
-            const lastProduct = this.products [this.products.length-1] 
-            product.id = lastProduct.id + 1;
+            product.id = 1;            
+            console.log("Primer producto agregado correctamente " + product.code)                         
+        }else{             
             this.products.forEach(p => {
                 if(p.code === product.code){
                     console.log("Codigo ya utilizado: -" +product.code+ "- Producto no ingresado ")
                     return
                 }
                 else{
-                    console.log("Producto agregado correctamente: " + product.code)                 
-                    this.products.push(product)                                           
-                    fs.promises.writeFile(this.path,JSON.stringify(this.products,null,'\t')) //Agrega al archivo json
-                }
+                    console.log("Producto agregado correctamente: " + product.code)                      
+                    const lastProduct = this.products [this.products.length-1] 
+                    product.id = lastProduct.id + 1;                                                                                                               
+                }              
             })
-        }        
+        }  
+        this.products.push(product) 
+        fs.promises.writeFile(this.path,JSON.stringify(this.products,null,'\t')) //Agrega al archivo json
+        console.log(this.products.length)
+        console.log(product.id)     
     }                   
 
     getProducts = async() => {
@@ -58,26 +59,8 @@ class ProductManager {
             }
             return [];
     }
-
-    checkId = async(id) => {
-        try{        
-            const getFileProducts = await fs.promises.readFile(this.path,'utf-8') //Leo los productos del archivo
-            const productsJSON = JSON.parse(getFileProducts); //convierto los productos en string
-            const productFound = productsJSON.find(p => p.id === id);      
-
-               if(productFound) {            
-               return productFound //retorno un objeto en formato object
-               
-               }
-               else{                
-                return null
-               }                
-        }
-        catch (err){
-            console.log(err)
-        }
-    }
-
+    
+     
     getProductById = async (id) => {   
         try{        
            const product = await this.checkId(id)
@@ -92,55 +75,54 @@ class ProductManager {
         }        
     }
 
-    updateProduct = async (id,object) => {
-        try {
-            const prod2UpdateObj = await this.checkId(id)
-            const array2UpdateObj = await fs.promises.readFile(this.path,'utf-8')   
-            const array2UpdateParse = JSON.parse(array2UpdateObj)
-            console.log("Se actualizara el id: " + id);         
-            console.log("Producto a actualizar: " +(prod2UpdateObj),typeof(prod2UpdateObj))  
-            console.log("arreglo del archivo a update" + array2UpdateParse)          
-            
-           
-            console.log("HOLA")
-            const arraux = array2UpdateParse.map(e => {
-                if(e.id === id){
-                    console.log("ADENTRO1" + object.title)
-                    e = Object.assign(e,object)
-                    console.log("ADENTRO" + e.title)
-                }else{
-                    console.log("NO")
-                }                                    
-            })  
-            console.log("adentro 3" +arraux)    
-        } 
     
-        catch (error) {
+
+    deleteById = async (id) => {
+        //Para este metodo tuve que trabajar con el indice porque con filter no funcionaba
+        try{
+            const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
+            let index = arr.findIndex((e) => e.id ===id)
             
+            if(index !==-1){ //verif que el index exista
+                arr.splice(index,1)
+                await fs.promises.writeFile(this.path,JSON.stringify(arr,null,'\t'))
+                console.log(arr)
+            }
+        }catch (err) {
+            console.log(err)
         }
-    }
-    
-    async deleteById(id) {
-        try {
-            this.products = this.products.filter((e) => e.id != id);
-            await fs.promises.writeFile(this.path,JSON.stringify(this.products,null,'\t'));
-            console.log("nuevo arreglo de productos" + this.products)
-        } catch (err) {
-            console.error(err);
-        }
-      }      
+
+      }
+
 
     async deleteAll(){
         try{
             this.products = [];
-            await fs.promises.writeFile(this.path,JSON.stringify(this.products))
+            //await fs.promises.writeFile(this.path,JSON.stringify(this.products))
+            await fs.promises.writeFile(this.path,this.products,null,'\t')
         }
         catch (err){
             console.log(err)
         }
       }
-    }
+    
 
+    updateProduct = async (id,nuevoElemento) => {
+        try {
+            const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
+            let index = arr.findIndex((e) => e.id ===id)
+
+            if(index !==-1){ //verif que el index exista
+                arr.splice(index,1,nuevoElemento) //indice del elemento que deseamos reemplazar, cantidad de elementos,nuevo elemeento a agregar
+                await fs.promises.writeFile(this.path,JSON.stringify(arr,null,'\t'))
+                console.log(arr)                                                                        
+            }
+        }                          
+        catch (error) {
+            console.log(error)            
+        }
+    }
+}
     //-------------------------------------------------
     let productManager = new ProductManager()
 
@@ -158,7 +140,7 @@ class ProductManager {
         description: "Producto igual al prod1",
         price: 200,
         thumbnail: "Sin imagen",
-        code: "code 1",
+        code: "code 2",
         stock: 25,        
     }
 
@@ -171,29 +153,30 @@ class ProductManager {
         stock: 30,
     }
 
-    const updateProduct = {
+    const newProd = {
         title: "producto a upgradear",
-        description:"product descriptio",
+        description:"product description",
         price: 400,
         thumbnail:"Sin imagen",
         stock: 1
 
     }
 
-
-
-    /* productManager.addProducts(prod1)
+    productManager.addProducts(prod1)
     productManager.addProducts(prod2) 
-    productManager.addProducts(prod3)  */ 
+    productManager.addProducts(prod3)
 
     //productManager.deleteAll()
-    productManager.deleteById(2)
+    //productManager.deleteById(1)
+
+    //productManager.deleteById(1)
+
 
     //productManager.getProducts()
-    //productManager.updateProduct(1,updateProduct)    
+    productManager.updateProduct(2,newProd)    
+
+  
 
 
-    //productManager.getProductById(3)
-    //productManager.getProducts()
 
  
