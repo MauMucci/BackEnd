@@ -63,10 +63,14 @@ export default class ProductManager {
     
      
     getProductById = async (id) => {   
-        try{        
-           const product = await this.checkId(id)
-           if(product){
-            return console.log("Producto solicitado: " + JSON.stringify(product,null,'\t'))
+        try{    
+
+
+            const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
+            let index = arr.findIndex((e) => e.id ===id)
+
+            if(index > this.products.length){
+            return console.log("Producto solicitado: " + JSON.stringify(arr[index],null,'\t'))
            }
            return console.log("NOT FOUND "+ id)
         }
@@ -235,7 +239,7 @@ export default class ProductManager {
     //productManager.deleteById(1)
 
 
-    //productManager.getProducts()
+    //productManager.getProductById(3)
     //productManager.updateProduct(2,newProd)    
 
   
