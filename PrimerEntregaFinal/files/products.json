@@ -1,0 +1,92 @@
+[
+	{
+		"title": "Cheesecake",
+		"description": "Cheesecake",
+		"price": 1000,
+		"thumbnail": "Sin imagen",
+		"code": "code 1",
+		"stock": 25,
+		"id": 1
+	},
+	{
+		"title": "Lemon pie",
+		"description": "Lemon pie",
+		"price": 2000,
+		"thumbnail": "Sin imagen",
+		"code": "code 2",
+		"stock": 25,
+		"id": 2
+	},
+	{
+		"title": "Torta oreo",
+		"description": "Base de galletitas oreo con crema de queso y dulce de leche",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 3",
+		"stock": 30,
+		"id": 3
+	},
+	{
+		"title": "Brownie",
+		"description": "Brownie de chocolate",
+		"price": 3400,
+		"thumbnail": "Sin imagen",
+		"code": "code 4",
+		"stock": 30,
+		"id": 4
+	},
+	{
+		"title": "Rogel",
+		"description": "Rogel",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 5",
+		"stock": 30,
+		"id": 5
+	},
+	{
+		"title": "Alfajores",
+		"description": "Alfajores rellenos de dulce de leche",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 6",
+		"stock": 30,
+		"id": 6
+	},
+	{
+		"title": "Selva negra",
+		"description": "Selva negra",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 7",
+		"stock": 30,
+		"id": 7
+	},
+	{
+		"title": "Choco torta",
+		"description": "Choco torta",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 8",
+		"stock": 30,
+		"id": 8
+	},
+	{
+		"title": "Pabloba",
+		"description": "Pablolba",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 9",
+		"stock": 30,
+		"id": 9
+	},
+	{
+		"title": "Tiramisu",
+		"description": "Tiramisu",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 10",
+		"stock": 30,
+		"id": 10
+	}
+]
