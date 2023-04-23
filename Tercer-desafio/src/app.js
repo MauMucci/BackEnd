@@ -27,11 +27,18 @@ app.get('/products', async (request, response) => {
 })
 
 app.get('/products/:pid', async (request, response) => {
-    const pid = request.params
-    console.log(pid)
+    const {pid} = request.params
+    console.log(pid,typeof(pid))
+    const pidNumber = parseInt(pid)
+    console.log(pidNumber,typeof(pidNumber))
+
+    // Consulta si el parámetro es un número ya que el ID es numérico
+    if (isNaN(Number(pidNumber))) {
+        return response.status(400).send({ status: 'Error', message: 'Invalid identification' });
+    }
 
     // Se devuelve el resultado
-    const result = await pm.getProductById(pid)
+    const result = await pm.getProductById(pidNumber)
 
     return response.send( result );
 })

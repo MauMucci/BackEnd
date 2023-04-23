@@ -65,12 +65,12 @@ export default class ProductManager {
     getProductById = async (id) => {   
         try{    
 
-
             const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
-            let index = arr.findIndex((e) => e.id ===id)
+            let index = arr.findIndex((e) => e.id ===parseInt(id))
 
-            if(index > this.products.length){
+            if(index >= 0){ //cambie la condicion porque con <this.products.length> no entraba al bucle
             return console.log("Producto solicitado: " + JSON.stringify(arr[index],null,'\t'))
+           
            }
            return console.log("NOT FOUND "+ id)
         }
@@ -221,7 +221,7 @@ export default class ProductManager {
 
     }
 
-    /* productManager.addProducts(prod1)
+    productManager.addProducts(prod1)
     productManager.addProducts(prod2) 
     productManager.addProducts(prod3)
     productManager.addProducts(prod4)
@@ -230,7 +230,7 @@ export default class ProductManager {
     productManager.addProducts(prod7)
     productManager.addProducts(prod8) 
     productManager.addProducts(prod9)
-    productManager.addProducts(prod10) */
+    productManager.addProducts(prod10) 
 
 
     //productManager.deleteAll()
@@ -238,8 +238,8 @@ export default class ProductManager {
 
     //productManager.deleteById(1)
 
-
-    //productManager.getProductById(3)
+    productManager.getProducts
+    productManager.getProductById(1)
     //productManager.updateProduct(2,newProd)    
 
   
