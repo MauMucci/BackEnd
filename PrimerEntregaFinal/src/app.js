@@ -1,20 +1,18 @@
-import express from "express";
-import ProductsManager from './Managers/productsManager.js' 
-
-
+import express from 'express';
 import productsRouter from './routes/products.router.js';
-import cartsRouter from "./routes/carts.router.js";
+import cartsRouter from './routes/carts.router.js';
 
 
-const app = express();//crea una insancia de express, permitiendo usar sus metodos y propiedades
-
+const app = express();
 const PORT = 8080
 
-app.use(express.json()); //
-app.use(express.urlencoded({extended:true})); 
+app.use(express.json());// Me permite leer jsons en las peticiones
 
-app.use('/api/products', productsRouter) //conecta app con el router
+app.use(express.urlencoded({extended:true})); //OBjetos codificados desde URL
+
+app.use('/api/products', productsRouter)
 app.use('/api/carts', cartsRouter)
+//
 
 app.listen(PORT, () => {
     try {

@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-export default class ProductsManager {      
+export default class ProductManager {      
       
     constructor(){                   
         this.products = []  
@@ -39,7 +39,7 @@ export default class ProductsManager {
             })
         }  
         this.products.push(product) 
-        console.log("Producto agregado correctamente: " + product.code)     
+        console.log("Producto agregado correctamente: " + product.title)     
         fs.promises.writeFile(this.path,JSON.stringify(this.products,null,'\t')) //Agrega al archivo json
           
     }                   
@@ -65,12 +65,12 @@ export default class ProductsManager {
     getProductById = async (id) => {   
         try{    
 
-
             const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
-            let index = arr.findIndex((e) => e.id ===id)
+            let index = arr.findIndex((e) => e.id ===parseInt(id))
 
-            if(index > this.products.length){
+            if(index >= 0){ //cambie la condicion porque con <this.products.length> no entraba al bucle
             return console.log("Producto solicitado: " + JSON.stringify(arr[index],null,'\t'))
+           
            }
            return console.log("NOT FOUND "+ id)
         }
@@ -127,7 +127,7 @@ export default class ProductsManager {
 }
 
     //-------------------------------------------------
-    let productsManager = new ProductsManager()
+    let productManager = new ProductManager()
 
     const prod1 = {
         title:"Cheesecake",
@@ -221,16 +221,16 @@ export default class ProductsManager {
 
     }
 
-    /* productsManager.addProducts(prod1)
-    productsManager.addProducts(prod2) 
-    productsManager.addProducts(prod3)
-    productsManager.addProducts(prod4)
-    productsManager.addProducts(prod5) 
-    productsManager.addProducts(prod6)
-    productsManager.addProducts(prod7)
-    productsManager.addProducts(prod8) 
-    productsManager.addProducts(prod9)
-    productsManager.addProducts(prod10) */
+  /*   productManager.addProducts(prod1)
+    productManager.addProducts(prod2) 
+    productManager.addProducts(prod3)
+    productManager.addProducts(prod4)
+    productManager.addProducts(prod5) 
+    productManager.addProducts(prod6)
+    productManager.addProducts(prod7)
+    productManager.addProducts(prod8) 
+    productManager.addProducts(prod9)
+    productManager.addProducts(prod10)  */
 
 
     //productManager.deleteAll()
@@ -238,8 +238,8 @@ export default class ProductsManager {
 
     //productManager.deleteById(1)
 
-
-    //productManager.getProductById(3)
+    //productManager.getProducts
+    //productManager.getProductById(1)
     //productManager.updateProduct(2,newProd)    
 
   
