@@ -65,15 +65,25 @@ productsRouter.put('/:pid', async (req, res) => {
 
         const result = await pm.updateProduct(Number(pid), product)
 
-        if (result.status === 'error') return response.status(400).send({ result });
+        if (result.status === 'error') return res.status(400).send({ result });
 
-        return response.status(200).send({ result })
+        return res.status(200).send({ result })
     }
     catch (err) {
         console.log(err);
     }
-    ;
+})
 
+productsRouter.delete(':/pid', async (req,res) => {
+    try{
+        const { pid } = req.params;
+        await productManager.deleteById(pid);
+        res.send("Producto con ${pid} eliminad");        
+        }  
+
+        catch (err){
+        console.log(err)
+    }
 })
 
 export default productsRouter;

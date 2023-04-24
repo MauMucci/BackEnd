@@ -87,14 +87,13 @@ export default class ProductManager {
             let index = arr.findIndex((e) => e.id ===id)
             
             if(index !==-1){ //verif que el index exista
-                arr.splice(index,1)
+                arr.splice(index,1) //splice() cambia el contenido de un array eliminando elementos existentes y/o agregando nuevos elementos.
                 await fs.promises.writeFile(this.path,JSON.stringify(arr,null,'\t'))
                 console.log(arr)
             }
         }catch (err) {
             console.log(err)
         }
-
       }
 
     async deleteAll(){
@@ -135,9 +134,8 @@ export default class ProductManager {
         price: 1000,
         thumbnail: "Sin imagen",
         code: "code 1",
-        stock: 25,        
+        stock: 10, 
     }
-
     const prod2 = {
         title:"Lemon pie",
         description: "Lemon pie",
@@ -146,7 +144,6 @@ export default class ProductManager {
         code: "code 2",
         stock: 25,        
     }
-
     const prod3 = {
         title:"Torta oreo",
         description: "Base de galletitas oreo con crema de queso y dulce de leche",
@@ -211,7 +208,6 @@ export default class ProductManager {
         code: "code 10",
         stock: 30,
     }
-
     const newProd = {
         title: "producto a upgradear",
         description:"product description",
