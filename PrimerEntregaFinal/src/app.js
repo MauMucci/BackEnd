@@ -17,7 +17,7 @@ app.use('/api/carts', cartsRouter)
 app.listen(PORT, () => {
     try {
         console.log(`Listening to the port ${PORT}`);
-        console.log("http://localhost:8080/api/products")
+        console.log("http://localhost:8080/api/carts")
     }
     catch (err) {
         console.log(err);

@@ -1,3 +1,4 @@
+import { error } from 'console'
 import fs from 'fs'
 
 export default class ProductManager {      
@@ -24,7 +25,7 @@ export default class ProductManager {
 
         if(this.products.length === 0){//Si no hay productos en el arreglo => le asignamos el id 1
             product.id = 1;            
-            console.log("Primer producto agregado correctamente " + product.code)                         
+            console.log("Primer producto agregado correctamente " + product.title + "id: "+product.id)                         
         }else{             
             this.products.forEach(p => {
                 if(p.code === product.code){
@@ -39,7 +40,7 @@ export default class ProductManager {
             })
         }  
         this.products.push(product) 
-        console.log("Producto agregado correctamente: " + product.title)     
+        console.log("Producto agregado correctamente: " + product.title + " ;id: "+product.id)     
         fs.promises.writeFile(this.path,JSON.stringify(this.products,null,'\t')) //Agrega al archivo json
           
     }                   
@@ -48,7 +49,7 @@ export default class ProductManager {
         if(fs.existsSync(this.path)){
             try{            
                 const data = await fs.promises.readFile(this.path,'utf-8');
-                const products = JSON.parse(data)
+                const products = JSON.parse(data)                  
                 //console.log("Productos guardados en el archivo: " +JSON.stringify(products,null,'\t'))
                 return products
             }        
@@ -75,24 +76,24 @@ export default class ProductManager {
            return console.log("NOT FOUND "+ id)
         }
 
-        catch (err){
-            console.log(err)
+        catch (error){
+            console.log(error)
         }        
     }
 
     deleteById = async (id) => {
         //Para este metodo tuve que trabajar con el indice porque con filter no funcionaba
         try{
-            const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
-            let index = arr.findIndex((e) => e.id ===id)
+            const products = await this.getProducts()         
+            let index = products.findIndex((p) => p.id === Number(id))
             
             if(index !==-1){ //verif que el index exista
-                arr.splice(index,1) //splice() cambia el contenido de un array eliminando elementos existentes y/o agregando nuevos elementos.
-                await fs.promises.writeFile(this.path,JSON.stringify(arr,null,'\t'))
-                console.log(arr)
+                products.splice(index,1) //splice() cambia el contenido de un array eliminando elementos existentes y/o agregando nuevos elementos.
+                await fs.promises.writeFile(this.path,JSON.stringify(products,null,'\t'))
+                return products
             }
-        }catch (err) {
-            console.log(err)
+        }catch (error) {
+            console.log(error)
         }
       }
 
@@ -102,17 +103,18 @@ export default class ProductManager {
             //await fs.promises.writeFile(this.path,JSON.stringify(this.products))
             await fs.promises.writeFile(this.path,this.products,null,'\t')
         }
-        catch (err){
-            console.log(err)
+        catch (error){
+            console.log(error)
         }
       }   
 
     updateProduct = async (id,nuevoElemento) => {
-        try {
-            const arr = JSON.parse(await fs.promises.readFile(this.path,'utf-8'));            
+        try {  
+            const arr = await this.getProducts()         
             let index = arr.findIndex((e) => e.id ===id)
 
             if(index !==-1){ //verif que el index exista
+                nuevoElemento.id = arr[index].id 
                 arr.splice(index,1,nuevoElemento) //indice del elemento que deseamos reemplazar, cantidad de elementos,nuevo elemeento a agregar
                 await fs.promises.writeFile(this.path,JSON.stringify(arr,null,'\t'))
                 console.log(arr)                                                                        
@@ -213,11 +215,12 @@ export default class ProductManager {
         description:"product description",
         price: 400,
         thumbnail:"Sin imagen",
-        stock: 1
+        stock: 1,
+        id: -1
 
     }
 
-  /*   productManager.addProducts(prod1)
+    /* productManager.addProducts(prod1)
     productManager.addProducts(prod2) 
     productManager.addProducts(prod3)
     productManager.addProducts(prod4)
@@ -234,9 +237,9 @@ export default class ProductManager {
 
     //productManager.deleteById(1)
 
-    //productManager.getProducts
+    //productManager.getProducts()
     //productManager.getProductById(1)
-    //productManager.updateProduct(2,newProd)    
+    //productManager.updateProduct(3,newProd)    
 
   
 

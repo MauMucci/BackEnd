@@ -46,10 +46,6 @@ productsRouter.post('/', async (req, res) => {
 
         const result = await pm.addProducts(product)
         console.log("hola "+result)
-        
-        //console.log(result.status)
-
-        //if (result.status === 'error') return res.status(400).send({ result });
 
         return res.status(200).send({ result });
     }
@@ -60,30 +56,47 @@ productsRouter.post('/', async (req, res) => {
 
 productsRouter.put('/:pid', async (req, res) => {
     try {
-        const { pid } = req.params
-        const product = res.body
+        const  pid  = req.params.pid//obtiene el valor del parametro de ruta
+       
+        const newProduct = req.body
+        //console.log(newProduct)
 
-        const result = await pm.updateProduct(Number(pid), product)
+        const allProducts = await pm.getProducts()
+        const index = allProducts.findIndex((p) => p.id == pid)
+        if(index == -1){
+            return res.status(404).send({status:"error",error:"not found"});
+        }
+        
+        newProduct.id = allProducts[index].id //debo mantener el id del elemento que reemplazo
+        allProducts[index] = newProduct //reemplazo en el arreglo de productos, el elemento que quiero reemplazar
 
-        if (result.status === 'error') return res.status(400).send({ result });
+        const result = await pm.updateProduct(pid,newProduct)
+        //console.log(result)
+        res.send({status:"succes",message:"product updated"})
 
-        return res.status(200).send({ result })
     }
     catch (err) {
         console.log(err);
     }
 })
 
-productsRouter.delete(':/pid', async (req,res) => {
-    try{
-        const { pid } = req.params;
-        await productManager.deleteById(pid);
-        res.send("Producto con ${pid} eliminad");        
-        }  
+productsRouter.delete('/:pid', async (req,res) => {
 
-        catch (err){
-        console.log(err)
+    try {
+        const  pid  = req.params.pid
+        const result = await pm.deleteById(pid)
+        console.log(result)
+
+        if (result) {
+            res.status(200).json({ status: 'success', message: 'Product deleted' });
+          } else {
+            res.status(404).json({ status: 'error', error: 'Product not found' });
+          }
+        
+
+    } catch (err) {
+        console.log(err);
     }
-})
+}); 
 
 export default productsRouter;

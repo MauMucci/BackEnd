@@ -1,50 +1,5 @@
 [
 	{
-		"title": "Cheesecake",
-		"description": "Cheesecake",
-		"price": 1000,
-		"thumbnail": "Sin imagen",
-		"code": "code 1",
-		"stock": 10,
-		"id": 1
-	},
-	{
-		"title": "Lemon pie",
-		"description": "Lemon pie",
-		"price": 2000,
-		"thumbnail": "Sin imagen",
-		"code": "code 2",
-		"stock": 25,
-		"id": 2
-	},
-	{
-		"title": "Torta oreo",
-		"description": "Base de galletitas oreo con crema de queso y dulce de leche",
-		"price": 3000,
-		"thumbnail": "Sin imagen",
-		"code": "code 3",
-		"stock": 30,
-		"id": 3
-	},
-	{
-		"title": "Brownie",
-		"description": "Brownie de chocolate",
-		"price": 3400,
-		"thumbnail": "Sin imagen",
-		"code": "code 4",
-		"stock": 30,
-		"id": 4
-	},
-	{
-		"title": "Rogel",
-		"description": "Rogel",
-		"price": 3000,
-		"thumbnail": "Sin imagen",
-		"code": "code 5",
-		"stock": 30,
-		"id": 5
-	},
-	{
 		"title": "Alfajores",
 		"description": "Alfajores rellenos de dulce de leche",
 		"price": 3000,
