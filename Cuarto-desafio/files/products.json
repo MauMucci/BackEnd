@@ -1,0 +1,47 @@
+[
+	{
+		"title": "Alfajores",
+		"description": "Alfajores rellenos de dulce de leche",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 6",
+		"stock": 30,
+		"id": 6
+	},
+	{
+		"title": "Selva negra",
+		"description": "Selva negra",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 7",
+		"stock": 30,
+		"id": 7
+	},
+	{
+		"title": "Choco torta",
+		"description": "Choco torta",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 8",
+		"stock": 30,
+		"id": 8
+	},
+	{
+		"title": "Pabloba",
+		"description": "Pablolba",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 9",
+		"stock": 30,
+		"id": 9
+	},
+	{
+		"title": "Tiramisu",
+		"description": "Tiramisu",
+		"price": 3000,
+		"thumbnail": "Sin imagen",
+		"code": "code 10",
+		"stock": 30,
+		"id": 10
+	}
+]
